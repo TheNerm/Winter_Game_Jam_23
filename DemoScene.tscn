@@ -56,12 +56,28 @@ shape = SubResource("3")
 position = Vector2(536, -64)
 shape = SubResource("3")
 
-[node name="PlatformerController2D" type="CharacterBody2D" parent="."]
-position = Vector2(288, 320)
+[node name="player2" type="CharacterBody2D" parent="."]
+position = Vector2(742, 392)
 script = ExtResource("1")
+input_left = "P2move_left"
+input_right = "P2move_right"
+input_jump = "P2jump"
 
-[node name="icon" type="Sprite2D" parent="PlatformerController2D"]
+[node name="icon" type="Sprite2D" parent="player2"]
 texture = ExtResource("2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformerController2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player2"]
+shape = SubResource("4")
+
+[node name="player1" type="CharacterBody2D" parent="."]
+position = Vector2(288, 320)
+script = ExtResource("1")
+input_left = "P1move_left"
+input_right = "P1move_right"
+input_jump = "P1jump"
+
+[node name="icon" type="Sprite2D" parent="player1"]
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player1"]
 shape = SubResource("4")
