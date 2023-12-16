@@ -119,6 +119,7 @@ var acc = Vector2()
 @onready var parrypng = get_node("Parrybox/ParryPng")
 @onready var parrytimer = get_node("ParryTimer")
 @onready var cooldowntimer = get_node("CoolDownTimer")
+@onready var parrySoundPlayer = get_node("parrySoundPlayer")
 
 
 func _init():
@@ -163,6 +164,7 @@ func _input(_event):
 			cooldowntimer.start()
 			parrybox.disabled=false
 			parrypng.visible=true
+			parrySoundPlayer.play()
 			parrytimer.start()
 		
 
@@ -340,13 +342,10 @@ func calculate_friction(time_to_max):
 func calculate_speed(p_max_speed, p_friction):
 	return (p_max_speed / p_friction) - p_max_speed
 
-
-
-func _on_hurtbox_area_entered(area):
-	if(area.is_in_group("stone")):
-		queue_free()
-
-
 func _on_hurtbox_body_entered(body):
 	if(body.is_in_group("stone")):
-		queue_free()
+		if(parrytimer.is_stopped()):
+			queue_free()
+		else:
+			cooldowntimer.stop()
+			
