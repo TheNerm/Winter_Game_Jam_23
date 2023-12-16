@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rnxqcavoydqx"]
+[gd_scene load_steps=23 format=3 uid="uid://rnxqcavoydqx"]
 
 [ext_resource type="Texture2D" uid="uid://dr4cm4dmxwvl2" path="res://Art/Background.png" id="1_d8ws6"]
 [ext_resource type="Texture2D" uid="uid://de0g2stcllght" path="res://Art/Glasshouse.png" id="2_d1cg0"]
@@ -8,8 +8,31 @@
 [ext_resource type="Texture2D" uid="uid://bt58d4bnpesbc" path="res://Art/CoconutTree2.png" id="4_5ak7p"]
 [ext_resource type="Texture2D" uid="uid://b1csxsd54o7hy" path="res://Art/rays.png" id="7_4c2e7"]
 [ext_resource type="PackedScene" uid="uid://dy62mlujliu06" path="res://platform.tscn" id="8_0x4y7"]
+[ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="9_cygyq"]
+[ext_resource type="PackedScene" uid="uid://di4giu3jd6hn8" path="res://trixi.tscn" id="10_5xj3c"]
+[ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="11_uk28x"]
+[ext_resource type="Texture2D" uid="uid://bxg4phiagrl3s" path="res://parryRing.png" id="12_bbb1k"]
+[ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="13_ux5js"]
+[ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="14_pb60x"]
+[ext_resource type="Script" path="res://stone.gd" id="15_mg4mc"]
+[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://Art/stone.png" id="16_wfen7"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4hnob"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2iubv"]
+size = Vector2(64, 1157.85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aji88"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tu64w"]
+radius = 79.0569
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yharx"]
+radius = 95.5249
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpj0c"]
+radius = 106.066
 
 [node name="Level1" type="Node2D"]
 
@@ -89,3 +112,144 @@ position = Vector2(246, 453)
 
 [node name="Platform8" parent="." instance=ExtResource("8_0x4y7")]
 position = Vector2(786, 151)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(562, 405)
+scale = Vector2(1.195, 1.195)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(52.7449, 305.705)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_2iubv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(57.5, -394)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_2iubv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-555, -33)
+shape = SubResource("RectangleShape2D_2iubv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(666, -36)
+shape = SubResource("RectangleShape2D_2iubv")
+
+[node name="player2" type="CharacterBody2D" parent="." groups=["players"]]
+position = Vector2(773, 430)
+script = ExtResource("9_cygyq")
+input_left = "P2move_left"
+input_right = "P2move_right"
+input_jump = "P2jump"
+input_parry = "P2parry"
+
+[node name="Trixi" parent="player2" instance=ExtResource("10_5xj3c")]
+position = Vector2(-111, -70)
+scale = Vector2(0.475, 0.475)
+
+[node name="icon" type="Sprite2D" parent="player2"]
+visible = false
+texture = ExtResource("11_uk28x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player2"]
+shape = SubResource("RectangleShape2D_aji88")
+
+[node name="Parrybox" type="Area2D" parent="player2"]
+
+[node name="ParryPng" type="Sprite2D" parent="player2/Parrybox"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_bbb1k")
+
+[node name="Parrybox" type="CollisionShape2D" parent="player2/Parrybox"]
+shape = SubResource("CircleShape2D_tu64w")
+
+[node name="ParryTimer" type="Timer" parent="player2"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoolDownTimer" type="Timer" parent="player2"]
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="player2" groups=["players"]]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="player2/Hurtbox" groups=["players"]]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_aji88")
+
+[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player2"]
+stream = ExtResource("13_ux5js")
+
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player2"]
+stream = ExtResource("14_pb60x")
+
+[node name="player1" type="CharacterBody2D" parent="." groups=["players"]]
+position = Vector2(219, 266)
+script = ExtResource("9_cygyq")
+input_left = "P1move_left"
+input_right = "P1move_right"
+input_jump = "P1jump"
+input_parry = "P1parry"
+
+[node name="icon" type="Sprite2D" parent="player1"]
+visible = false
+texture = ExtResource("11_uk28x")
+
+[node name="Trixi" parent="player1" instance=ExtResource("10_5xj3c")]
+position = Vector2(-111, -70)
+scale = Vector2(0.475, 0.475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player1"]
+shape = SubResource("RectangleShape2D_aji88")
+
+[node name="Parrybox" type="Area2D" parent="player1"]
+
+[node name="ParryPng" type="Sprite2D" parent="player1/Parrybox"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_bbb1k")
+
+[node name="Parrybox" type="CollisionShape2D" parent="player1/Parrybox"]
+shape = SubResource("CircleShape2D_tu64w")
+
+[node name="ParryTimer" type="Timer" parent="player1"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoolDownTimer" type="Timer" parent="player1"]
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="player1" groups=["players"]]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="player1/Hurtbox" groups=["players"]]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_aji88")
+
+[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player1"]
+stream = ExtResource("13_ux5js")
+
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player1"]
+stream = ExtResource("14_pb60x")
+
+[node name="stone" type="CharacterBody2D" parent="." groups=["stone"]]
+position = Vector2(55, 59)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("15_mg4mc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone" groups=["stone"]]
+shape = SubResource("CircleShape2D_yharx")
+
+[node name="stonePng" type="Sprite2D" parent="stone" groups=["stone"]]
+position = Vector2(0, -20)
+texture = ExtResource("16_wfen7")
+
+[node name="Area2D" type="Area2D" parent="stone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
+shape = SubResource("CircleShape2D_rpj0c")
+
+[connection signal="timeout" from="player2/ParryTimer" to="player2" method="_on_parry_timer_timeout"]
+[connection signal="body_entered" from="player2/Hurtbox" to="player2" method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="player1/ParryTimer" to="player1" method="_on_parry_timer_timeout"]
+[connection signal="body_entered" from="player1/Hurtbox" to="player1" method="_on_hurtbox_body_entered"]
+[connection signal="area_entered" from="stone/Area2D" to="stone" method="_on_area_2d_area_entered"]

@@ -26,6 +26,11 @@ func _hitPlatform():
 		sprite2.visible = true
 	elif(platformStatus == 2):
 		#TODO: play particle effect
-		self.disabled = true
+		queue_free()
 	platformStatus = platformStatus + 1
 		
+
+
+func _on_area_2d_body_entered(body):
+	if (body.is_in_group("stone")):
+		_hitPlatform()
