@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://yums08axhcvl"]
+[gd_scene load_steps=16 format=3 uid="uid://yums08axhcvl"]
 
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="2"]
@@ -6,7 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="4_31jlg"]
 [ext_resource type="Script" path="res://stone.gd" id="4_eo6xm"]
 [ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="5_3dopf"]
-[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://stone.png" id="5_gqejg"]
+[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://Art/stone.png" id="5_gqejg"]
+[ext_resource type="PackedScene" uid="uid://di4giu3jd6hn8" path="res://trixi.tscn" id="6_vchgi"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1024, 112)
@@ -88,7 +89,12 @@ input_right = "P2move_right"
 input_jump = "P2jump"
 input_parry = "P2parry"
 
+[node name="Trixi" parent="player2" instance=ExtResource("6_vchgi")]
+position = Vector2(-111, -70)
+scale = Vector2(0.475, 0.475)
+
 [node name="icon" type="Sprite2D" parent="player2"]
+visible = false
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player2"]
@@ -132,7 +138,12 @@ input_jump = "P1jump"
 input_parry = "P1parry"
 
 [node name="icon" type="Sprite2D" parent="player1"]
+visible = false
 texture = ExtResource("2")
+
+[node name="Trixi" parent="player1" instance=ExtResource("6_vchgi")]
+position = Vector2(-111, -70)
+scale = Vector2(0.475, 0.475)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player1"]
 shape = SubResource("4")

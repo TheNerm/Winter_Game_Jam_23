@@ -9,6 +9,7 @@
 size = Vector2(336, 75)
 
 [node name="Platform" type="StaticBody2D"]
+scale = Vector2(0.35, 0.35)
 script = ExtResource("1_0nutd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,9 +21,11 @@ position = Vector2(249, 79)
 texture = ExtResource("2_vpn82")
 
 [node name="PlatformCracked1" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(246, 80)
 texture = ExtResource("3_sppj6")
 
 [node name="PlatformCracked2" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(243, 90)
 texture = ExtResource("4_ox5mg")

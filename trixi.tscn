@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://di4giu3jd6hn8"]
+
+[ext_resource type="Texture2D" uid="uid://cs2tvv32ctmmp" path="res://Art/Trixi_Head.png" id="1_xhue5"]
+[ext_resource type="Texture2D" uid="uid://b6cuanaumqy2c" path="res://Art/Trixi_Hair.png" id="2_lcxdi"]
+[ext_resource type="Texture2D" uid="uid://cs2ygamg4clrm" path="res://Art/Trixi_Pot.png" id="3_qulnh"]
+
+[node name="Trixi" type="Node2D"]
+
+[node name="TrixiHead" type="Sprite2D" parent="."]
+self_modulate = Color(0.85098, 0.843137, 0.8, 1)
+position = Vector2(234, 104)
+texture = ExtResource("1_xhue5")
+
+[node name="TrixiHair" type="Sprite2D" parent="TrixiHead"]
+self_modulate = Color(0.839216, 0.858824, 0.831373, 1)
+position = Vector2(-4, -62)
+texture = ExtResource("2_lcxdi")
+
+[node name="TrixiPot" type="Sprite2D" parent="."]
+position = Vector2(239, 161)
+texture = ExtResource("3_qulnh")
