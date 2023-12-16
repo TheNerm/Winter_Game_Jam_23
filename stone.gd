@@ -10,6 +10,12 @@ func _physics_process(delta):
 
 
 func _on_area_2d_area_entered(area):
-	if(area.is_in_group("parry")):
-		if (area.disabled==false):
-			pass
+	if(area.is_in_group("players")):
+		velocity.x *= 1.1
+		velocity.y *= 1.1
+
+func _on_hurtbox_body_entered(body):
+	if(body.is_in_group("players")):
+		velocity.x *= 1.1
+		velocity.y *= 1.1
+		
