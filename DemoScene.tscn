@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://yums08axhcvl"]
+[gd_scene load_steps=13 format=3 uid="uid://yums08axhcvl"]
 
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="2"]
@@ -13,7 +13,7 @@ size = Vector2(1024, 112)
 size = Vector2(416, 112)
 
 [sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(64, 608)
+size = Vector2(64, 1151)
 
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(64, 64)
@@ -23,6 +23,9 @@ radius = 79.0569
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5los8"]
 radius = 95.5249
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vopkx"]
+radius = 106.066
 
 [node name="Main" type="Node2D"]
 
@@ -57,15 +60,25 @@ shape = SubResource("2")
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(520, 360)
 
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(55, 323)
+rotation = 1.5708
+shape = SubResource("3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(57.5, -394)
+rotation = 1.5708
+shape = SubResource("3")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(-552, -64)
+position = Vector2(-555, -33)
 shape = SubResource("3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(536, -64)
+position = Vector2(666, -36)
 shape = SubResource("3")
 
-[node name="player2" type="CharacterBody2D" parent="."]
+[node name="player2" type="CharacterBody2D" parent="." groups=["players"]]
 position = Vector2(742, 392)
 script = ExtResource("1")
 input_left = "P2move_left"
@@ -96,12 +109,13 @@ one_shot = true
 [node name="CoolDownTimer" type="Timer" parent="player2"]
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="player2"]
+[node name="Hurtbox" type="Area2D" parent="player2" groups=["players"]]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="player2/Hurtbox"]
+[node name="Hurtbox" type="CollisionShape2D" parent="player2/Hurtbox" groups=["players"]]
+scale = Vector2(1.1, 1.1)
 shape = SubResource("4")
 
-[node name="player1" type="CharacterBody2D" parent="."]
+[node name="player1" type="CharacterBody2D" parent="." groups=["players"]]
 position = Vector2(288, 320)
 script = ExtResource("1")
 input_left = "P1move_left"
@@ -120,7 +134,7 @@ shape = SubResource("4")
 [node name="Parrybox" type="CollisionShape2D" parent="player1/Parrybox"]
 shape = SubResource("CircleShape2D_mjj33")
 
-[node name="ParryPng" type="Sprite2D" parent="player1/Parrybox"]
+[node name="ParryPng" type="Sprite2D" parent="player1/Parrybox" groups=["parry"]]
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_e1i2t")
@@ -132,22 +146,32 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="player1"]
+[node name="Hurtbox" type="Area2D" parent="player1" groups=["players"]]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="player1/Hurtbox"]
+[node name="Hurtbox" type="CollisionShape2D" parent="player1/Hurtbox" groups=["players"]]
 shape = SubResource("4")
 
-[node name="stone" type="CharacterBody2D" parent="."]
+[node name="stone" type="CharacterBody2D" parent="." groups=["stone"]]
 position = Vector2(55, 59)
 scale = Vector2(0.2, 0.2)
 script = ExtResource("4_eo6xm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="stone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone" groups=["stone"]]
 shape = SubResource("CircleShape2D_5los8")
 
-[node name="stonePng" type="Sprite2D" parent="stone"]
+[node name="stonePng" type="Sprite2D" parent="stone" groups=["stone"]]
 position = Vector2(0, -20)
 texture = ExtResource("5_gqejg")
 
+[node name="Area2D" type="Area2D" parent="stone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
+shape = SubResource("CircleShape2D_vopkx")
+
 [connection signal="timeout" from="player2/ParryTimer" to="player2" method="_on_parry_timer_timeout"]
+[connection signal="area_entered" from="player2/Hurtbox" to="player2" method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="player2/Hurtbox" to="player2" method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="player1/ParryTimer" to="player1" method="_on_parry_timer_timeout"]
+[connection signal="area_entered" from="player1/Hurtbox" to="player1" method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="player1/Hurtbox" to="player1" method="_on_hurtbox_body_entered"]
+[connection signal="area_entered" from="stone/Area2D" to="stone" method="_on_area_2d_area_entered"]
