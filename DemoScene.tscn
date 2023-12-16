@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://yums08axhcvl"]
+[gd_scene load_steps=15 format=3 uid="uid://yums08axhcvl"]
 
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://bxg4phiagrl3s" path="res://parryRing.png" id="3_e1i2t"]
 [ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="4_31jlg"]
 [ext_resource type="Script" path="res://stone.gd" id="4_eo6xm"]
+[ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="5_3dopf"]
 [ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://stone.png" id="5_gqejg"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -119,6 +120,9 @@ shape = SubResource("4")
 [node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player2"]
 stream = ExtResource("4_31jlg")
 
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player2"]
+stream = ExtResource("5_3dopf")
+
 [node name="player1" type="CharacterBody2D" parent="." groups=["players"]]
 position = Vector2(269, 286)
 script = ExtResource("1")
@@ -158,6 +162,9 @@ shape = SubResource("4")
 
 [node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player1"]
 stream = ExtResource("4_31jlg")
+
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player1"]
+stream = ExtResource("5_3dopf")
 
 [node name="stone" type="CharacterBody2D" parent="." groups=["stone"]]
 position = Vector2(55, 59)

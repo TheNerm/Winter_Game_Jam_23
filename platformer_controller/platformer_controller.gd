@@ -86,6 +86,7 @@ var _jump_duration: float = DEFAULT_JUMP_DURATION
 ## Pressing jump this many seconds before hitting the ground will still make you jump.
 ## Only neccessary when can_hold_jump is unchecked.
 @export var jump_buffer : float = 0.1
+var tempVelocity : Vector2
 
 
 # These will be calcualted automatically
@@ -120,6 +121,7 @@ var acc = Vector2()
 @onready var parrytimer = get_node("ParryTimer")
 @onready var cooldowntimer = get_node("CoolDownTimer")
 @onready var parrySoundPlayer = get_node("parrySoundPlayer")
+@onready var parryReadySound = get_node("parryReadySound")
 
 
 func _init():
@@ -164,13 +166,19 @@ func _input(_event):
 			cooldowntimer.start()
 			parrybox.disabled=false
 			parrypng.visible=true
-			parrySoundPlayer.play()
+			parryReadySound.play()
 			parrytimer.start()
+			default_gravity=0;
+			tempVelocity = velocity
+			velocity=Vector2(0,0);
+			
 		
 
 func _on_parry_timer_timeout() -> void:
 	parrybox.disabled=true
 	parrypng.visible=false
+	default_gravity = calculate_gravity(max_jump_height, jump_duration)
+	velocity = tempVelocity
 
 
 func _physics_process(delta):
@@ -348,4 +356,5 @@ func _on_hurtbox_body_entered(body):
 			queue_free()
 		else:
 			cooldowntimer.stop()
+			parrySoundPlayer.play()
 			
