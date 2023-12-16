@@ -13,6 +13,9 @@ signal hit_ground()
 @export var input_right : String = "move_right"
 ## Name of input action to jump.
 @export var input_jump : String = "jump"
+## Name of the input action to parry.
+@export var input_parry :  String = "parry"
+
 
 
 const DEFAULT_MAX_JUMP_HEIGHT = 150
@@ -111,6 +114,11 @@ var acc = Vector2()
 @onready var is_jump_buffer_enabled = jump_buffer > 0
 @onready var coyote_timer = Timer.new()
 @onready var jump_buffer_timer = Timer.new()
+@onready var hurtbox = get_node("Hurtbox")
+@onready var parrybox = get_node("Parrybox/Parrybox")
+@onready var parrypng = get_node("Parrybox/ParryPng")
+@onready var parrytimer = get_node("ParryTimer")
+@onready var cooldowntimer = get_node("CoolDownTimer")
 
 
 func _init():
@@ -149,6 +157,18 @@ func _input(_event):
 		
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
+	
+	if Input.is_action_just_pressed(input_parry):
+		if (cooldowntimer.is_stopped()):
+			cooldowntimer.start()
+			parrybox.disabled=false
+			parrypng.visible=true
+			parrytimer.start()
+		
+
+func _on_parry_timer_timeout() -> void:
+	parrybox.disabled=true
+	parrypng.visible=false
 
 
 func _physics_process(delta):
