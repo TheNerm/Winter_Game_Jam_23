@@ -366,4 +366,6 @@ func _killMe():
 
 
 func _on_death_zone_area_entered(area):
-	_killMe()
+	print(area.name)
+	if(!area.is_in_group("stone")):
+		_killMe()

@@ -164,6 +164,8 @@ position = Vector2(773, 430)
 script = ExtResource("1_6qnue")
 
 [node name="player2" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("9_cygyq")
 input_left = "P2move_left"
 input_right = "P2move_right"
@@ -212,6 +214,8 @@ stream = ExtResource("14_pb60x")
 
 [node name="player1" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
 position = Vector2(-554, -164)
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("9_cygyq")
 input_left = "P1move_left"
 input_right = "P1move_right"
@@ -314,9 +318,9 @@ position = Vector2(-5, 5)
 scale = Vector2(1.42, 1.42)
 texture = ExtResource("17_v0jbx")
 
-[node name="Area2D" type="Area2D" parent="stone"]
+[node name="Area2D" type="Area2D" parent="stone" groups=["stone"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D" groups=["stone"]]
 shape = SubResource("CircleShape2D_rpj0c")
 
 [connection signal="area_entered" from="DeathZone" to="GameHandler/player2" method="_on_death_zone_area_entered"]
