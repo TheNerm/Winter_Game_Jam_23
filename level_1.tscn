@@ -104,28 +104,28 @@ scale = Vector2(1215, 755)
 texture = SubResource("CanvasTexture_4hnob")
 
 [node name="Platform" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(839, 371)
+position = Vector2(880, 400)
 
 [node name="Platform2" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(463, 381)
+position = Vector2(240, 400)
 
 [node name="Platform3" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(130, 291)
+position = Vector2(183, 425)
 
 [node name="Platform4" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(558, 196)
+position = Vector2(555, 252)
 
 [node name="Platform5" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(289, 156)
+position = Vector2(438, 252)
 
 [node name="Platform6" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(690, 471)
+position = Vector2(763, 400)
 
 [node name="Platform7" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(246, 453)
+position = Vector2(122, 400)
 
 [node name="Platform8" parent="." instance=ExtResource("8_0x4y7")]
-position = Vector2(786, 151)
+position = Vector2(490, 279)
 
 [node name="DeathZone" type="Area2D" parent="." groups=["death"]]
 position = Vector2(556, 436)
@@ -166,6 +166,7 @@ position = Vector2(773, 430)
 script = ExtResource("1_6qnue")
 
 [node name="player2" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
+position = Vector2(128, -75)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("9_cygyq")
@@ -215,7 +216,7 @@ stream = ExtResource("13_ux5js")
 stream = ExtResource("14_pb60x")
 
 [node name="player1" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
-position = Vector2(-554, -164)
+position = Vector2(-490, -80)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("9_cygyq")
@@ -332,6 +333,42 @@ autoplay = true
 
 [node name="glassbreak" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_vnlql")
+
+[node name="Platform9" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(-18, 555)
+
+[node name="Platform10" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(386, 555)
+
+[node name="Platform11" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(507, 555)
+
+[node name="Platform12" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(622, 555)
+
+[node name="Platform13" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(816, 425)
+
+[node name="Platform14" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(1018, 555)
+
+[node name="Platform15" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(191, 166)
+
+[node name="Platform16" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(801, 164)
+
+[node name="Platform17" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(737, 555)
+
+[node name="Platform18" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(267, 555)
+
+[node name="Platform19" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(903, 555)
+
+[node name="Platform20" parent="." instance=ExtResource("8_0x4y7")]
+position = Vector2(96.0001, 555)
 
 [connection signal="timeout" from="GameHandler/player2/ParryTimer" to="GameHandler/player2" method="_on_parry_timer_timeout"]
 [connection signal="area_entered" from="GameHandler/player2/Hurtbox" to="GameHandler/player2" method="_on_hurtbox_area_entered"]
