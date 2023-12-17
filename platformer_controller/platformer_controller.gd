@@ -369,3 +369,8 @@ func _on_death_zone_area_entered(area):
 	#print(area.name)
 	if(!area.is_in_group("stone")):
 		_killMe()
+
+
+func _on_hurtbox_area_entered(area):
+	if(area.is_in_group("death")):
+		_killMe()

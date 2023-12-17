@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://yums08axhcvl"]
+[gd_scene load_steps=17 format=3 uid="uid://yums08axhcvl"]
 
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="2"]
@@ -6,8 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="4_31jlg"]
 [ext_resource type="Script" path="res://stone.gd" id="4_eo6xm"]
 [ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="5_3dopf"]
-[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://stone.png" id="5_gqejg"]
-[ext_resource type="PackedScene" uid="uid://di4giu3jd6hn8" path="res://trixi.tscn" id="6_vchgi"]
+[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://Art/stone.png" id="5_gqejg"]
+[ext_resource type="PackedScene" path="res://trixi.tscn" id="6_vchgi"]
+[ext_resource type="AudioStream" uid="uid://jew020x87fnh" path="res://battle_music.wav" id="9_46e7h"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1024, 112)
@@ -193,6 +194,10 @@ texture = ExtResource("5_gqejg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
 shape = SubResource("CircleShape2D_vopkx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_46e7h")
+autoplay = true
 
 [connection signal="timeout" from="player2/ParryTimer" to="player2" method="_on_parry_timer_timeout"]
 [connection signal="body_entered" from="player2/Hurtbox" to="player2" method="_on_hurtbox_body_entered"]
