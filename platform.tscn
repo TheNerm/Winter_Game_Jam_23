@@ -8,32 +8,33 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uemd6"]
 size = Vector2(336, 75)
 
-[node name="Platform" type="StaticBody2D"]
+[node name="Platform" type="StaticBody2D" groups=["Platform"]]
 scale = Vector2(0.35, 0.35)
 script = ExtResource("1_0nutd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Platform"]]
 position = Vector2(239, 81.5)
 shape = SubResource("RectangleShape2D_uemd6")
 one_way_collision = true
 
-[node name="PlatformNomal" type="Sprite2D" parent="."]
+[node name="PlatformNomal" type="Sprite2D" parent="." groups=["Platform"]]
 position = Vector2(249, 79)
 texture = ExtResource("2_vpn82")
 
-[node name="PlatformCracked1" type="Sprite2D" parent="."]
+[node name="PlatformCracked1" type="Sprite2D" parent="." groups=["Platform"]]
 visible = false
 position = Vector2(246, 80)
 texture = ExtResource("3_sppj6")
 
-[node name="PlatformCracked2" type="Sprite2D" parent="."]
+[node name="PlatformCracked2" type="Sprite2D" parent="." groups=["Platform"]]
 visible = false
 position = Vector2(243, 90)
 texture = ExtResource("4_ox5mg")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Platform"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Platform"]]
+visible = false
 position = Vector2(239, 81.5)
 scale = Vector2(1.09, 1.09)
 shape = SubResource("RectangleShape2D_uemd6")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://rnxqcavoydqx"]
+[gd_scene load_steps=26 format=3 uid="uid://rnxqcavoydqx"]
 
+[ext_resource type="Script" path="res://GameHandler.gd" id="1_6qnue"]
 [ext_resource type="Texture2D" uid="uid://dr4cm4dmxwvl2" path="res://Art/Background.png" id="1_d8ws6"]
 [ext_resource type="Texture2D" uid="uid://de0g2stcllght" path="res://Art/Glasshouse.png" id="2_d1cg0"]
 [ext_resource type="Texture2D" uid="uid://crfmbf6wkkm3r" path="res://Art/ForegroundL.png" id="3_4if2l"]
@@ -15,7 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="13_ux5js"]
 [ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="14_pb60x"]
 [ext_resource type="Script" path="res://stone.gd" id="15_mg4mc"]
-[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://Art/stone.png" id="16_wfen7"]
+[ext_resource type="Texture2D" uid="uid://dg2kaf4qtlvgs" path="res://Art/standotpiengi.png" id="17_v0jbx"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4hnob"]
 
@@ -27,6 +28,13 @@ size = Vector2(64, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tu64w"]
 radius = 79.0569
+
+[sub_resource type="SystemFont" id="SystemFont_jhmcx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_86el3"]
+font = SubResource("SystemFont_jhmcx")
+font_size = 64
+font_color = Color(0.643137, 0.67451, 0.568627, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yharx"]
 radius = 95.5249
@@ -118,138 +126,186 @@ position = Vector2(562, 405)
 scale = Vector2(1.195, 1.195)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(52.7449, 305.705)
+position = Vector2(60.251, 251.046)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_2iubv")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(57.5, -394)
+position = Vector2(40.1673, -381.59)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_2iubv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(-555, -33)
+position = Vector2(-519.665, -24.2678)
 shape = SubResource("RectangleShape2D_2iubv")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(666, -36)
+position = Vector2(536.402, -48.5356)
 shape = SubResource("RectangleShape2D_2iubv")
 
-[node name="player2" type="CharacterBody2D" parent="." groups=["players"]]
+[node name="GameHandler" type="Node2D" parent="."]
 position = Vector2(773, 430)
+script = ExtResource("1_6qnue")
+
+[node name="player2" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
 script = ExtResource("9_cygyq")
 input_left = "P2move_left"
 input_right = "P2move_right"
 input_jump = "P2jump"
 input_parry = "P2parry"
 
-[node name="Trixi" parent="player2" instance=ExtResource("10_5xj3c")]
+[node name="Trixi" parent="GameHandler/player2" instance=ExtResource("10_5xj3c")]
 position = Vector2(-111, -70)
 scale = Vector2(0.475, 0.475)
 
-[node name="icon" type="Sprite2D" parent="player2"]
+[node name="icon" type="Sprite2D" parent="GameHandler/player2"]
 visible = false
 texture = ExtResource("11_uk28x")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameHandler/player2"]
 shape = SubResource("RectangleShape2D_aji88")
 
-[node name="Parrybox" type="Area2D" parent="player2"]
+[node name="Parrybox" type="Area2D" parent="GameHandler/player2"]
 
-[node name="ParryPng" type="Sprite2D" parent="player2/Parrybox"]
+[node name="ParryPng" type="Sprite2D" parent="GameHandler/player2/Parrybox"]
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_bbb1k")
 
-[node name="Parrybox" type="CollisionShape2D" parent="player2/Parrybox"]
+[node name="Parrybox" type="CollisionShape2D" parent="GameHandler/player2/Parrybox"]
 shape = SubResource("CircleShape2D_tu64w")
 
-[node name="ParryTimer" type="Timer" parent="player2"]
+[node name="ParryTimer" type="Timer" parent="GameHandler/player2"]
 wait_time = 0.2
 one_shot = true
 
-[node name="CoolDownTimer" type="Timer" parent="player2"]
+[node name="CoolDownTimer" type="Timer" parent="GameHandler/player2"]
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="player2" groups=["players"]]
+[node name="Hurtbox" type="Area2D" parent="GameHandler/player2" groups=["players"]]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="player2/Hurtbox" groups=["players"]]
+[node name="Hurtbox" type="CollisionShape2D" parent="GameHandler/player2/Hurtbox" groups=["players"]]
 scale = Vector2(1.1, 1.1)
 shape = SubResource("RectangleShape2D_aji88")
 
-[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player2"]
+[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="GameHandler/player2"]
 stream = ExtResource("13_ux5js")
 
-[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player2"]
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="GameHandler/player2"]
 stream = ExtResource("14_pb60x")
 
-[node name="player1" type="CharacterBody2D" parent="." groups=["players"]]
-position = Vector2(219, 266)
+[node name="player1" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
+position = Vector2(-554, -164)
+collision_layer = 2
 script = ExtResource("9_cygyq")
 input_left = "P1move_left"
 input_right = "P1move_right"
 input_jump = "P1jump"
 input_parry = "P1parry"
 
-[node name="icon" type="Sprite2D" parent="player1"]
+[node name="icon" type="Sprite2D" parent="GameHandler/player1"]
 visible = false
 texture = ExtResource("11_uk28x")
 
-[node name="Trixi" parent="player1" instance=ExtResource("10_5xj3c")]
+[node name="Trixi" parent="GameHandler/player1" instance=ExtResource("10_5xj3c")]
 position = Vector2(-111, -70)
 scale = Vector2(0.475, 0.475)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameHandler/player1"]
 shape = SubResource("RectangleShape2D_aji88")
 
-[node name="Parrybox" type="Area2D" parent="player1"]
+[node name="Parrybox" type="Area2D" parent="GameHandler/player1"]
 
-[node name="ParryPng" type="Sprite2D" parent="player1/Parrybox"]
+[node name="ParryPng" type="Sprite2D" parent="GameHandler/player1/Parrybox"]
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_bbb1k")
 
-[node name="Parrybox" type="CollisionShape2D" parent="player1/Parrybox"]
+[node name="Parrybox" type="CollisionShape2D" parent="GameHandler/player1/Parrybox"]
 shape = SubResource("CircleShape2D_tu64w")
 
-[node name="ParryTimer" type="Timer" parent="player1"]
+[node name="ParryTimer" type="Timer" parent="GameHandler/player1"]
 wait_time = 0.2
 one_shot = true
 
-[node name="CoolDownTimer" type="Timer" parent="player1"]
+[node name="CoolDownTimer" type="Timer" parent="GameHandler/player1"]
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="player1" groups=["players"]]
+[node name="Hurtbox" type="Area2D" parent="GameHandler/player1" groups=["players"]]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="player1/Hurtbox" groups=["players"]]
+[node name="Hurtbox" type="CollisionShape2D" parent="GameHandler/player1/Hurtbox" groups=["players"]]
 scale = Vector2(1.1, 1.1)
 shape = SubResource("RectangleShape2D_aji88")
 
-[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="player1"]
+[node name="parrySoundPlayer" type="AudioStreamPlayer2D" parent="GameHandler/player1"]
 stream = ExtResource("13_ux5js")
 
-[node name="parryReadySound" type="AudioStreamPlayer2D" parent="player1"]
+[node name="parryReadySound" type="AudioStreamPlayer2D" parent="GameHandler/player1"]
 stream = ExtResource("14_pb60x")
 
+[node name="GameOver" type="CanvasLayer" parent="GameHandler"]
+visible = false
+
+[node name="Panel" type="Panel" parent="GameHandler/GameOver"]
+offset_left = -75.0
+offset_top = 748.0
+offset_right = -43.0
+offset_bottom = 807.0
+scale = Vector2(40.9439, -13.5607)
+
+[node name="Game Over message3" type="Label" parent="GameHandler/GameOver"]
+offset_left = 135.0
+offset_top = 391.0
+offset_right = 982.0
+offset_bottom = 661.0
+text = "Press Enter/A for restarting"
+label_settings = SubResource("LabelSettings_86el3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Game Over message" type="Label" parent="GameHandler/GameOver"]
+offset_left = 135.0
+offset_top = 217.0
+offset_right = 982.0
+offset_bottom = 487.0
+text = "..."
+label_settings = SubResource("LabelSettings_86el3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Game Over message2" type="Label" parent="GameHandler/GameOver"]
+offset_left = 120.0
+offset_top = 49.0
+offset_right = 967.0
+offset_bottom = 319.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_86el3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="stone" type="CharacterBody2D" parent="." groups=["stone"]]
-position = Vector2(55, 59)
+position = Vector2(269, 61)
 scale = Vector2(0.2, 0.2)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("15_mg4mc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone" groups=["stone"]]
 shape = SubResource("CircleShape2D_yharx")
 
 [node name="stonePng" type="Sprite2D" parent="stone" groups=["stone"]]
-position = Vector2(0, -20)
-texture = ExtResource("16_wfen7")
+self_modulate = Color(0.376471, 0.415686, 0.411765, 1)
+position = Vector2(-5, 5)
+scale = Vector2(1.42, 1.42)
+texture = ExtResource("17_v0jbx")
 
 [node name="Area2D" type="Area2D" parent="stone"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
 shape = SubResource("CircleShape2D_rpj0c")
 
-[connection signal="timeout" from="player2/ParryTimer" to="player2" method="_on_parry_timer_timeout"]
-[connection signal="body_entered" from="player2/Hurtbox" to="player2" method="_on_hurtbox_body_entered"]
-[connection signal="timeout" from="player1/ParryTimer" to="player1" method="_on_parry_timer_timeout"]
-[connection signal="body_entered" from="player1/Hurtbox" to="player1" method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="GameHandler/player2/ParryTimer" to="GameHandler/player2" method="_on_parry_timer_timeout"]
+[connection signal="body_entered" from="GameHandler/player2/Hurtbox" to="GameHandler/player2" method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="GameHandler/player1/ParryTimer" to="GameHandler/player1" method="_on_parry_timer_timeout"]
+[connection signal="body_entered" from="GameHandler/player1/Hurtbox" to="GameHandler/player1" method="_on_hurtbox_body_entered"]
 [connection signal="area_entered" from="stone/Area2D" to="stone" method="_on_area_2d_area_entered"]

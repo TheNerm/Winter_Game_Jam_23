@@ -354,6 +354,8 @@ func _on_hurtbox_body_entered(body):
 	if(body.is_in_group("stone")):
 		if(parrytimer.is_stopped()):
 			queue_free()
+			var parent_node = get_parent()
+			parent_node._death(self.name)
 		else:
 			cooldowntimer.stop()
 			parrySoundPlayer.play()

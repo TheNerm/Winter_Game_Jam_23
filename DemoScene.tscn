@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b6n3x0l2x32gi" path="res://shield-parry-smb.mp3" id="4_31jlg"]
 [ext_resource type="Script" path="res://stone.gd" id="4_eo6xm"]
 [ext_resource type="AudioStream" uid="uid://cgalw2jafehtt" path="res://parry_4.wav" id="5_3dopf"]
-[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://Art/stone.png" id="5_gqejg"]
+[ext_resource type="Texture2D" uid="uid://bhpuvpj4lcaix" path="res://stone.png" id="5_gqejg"]
 [ext_resource type="PackedScene" uid="uid://di4giu3jd6hn8" path="res://trixi.tscn" id="6_vchgi"]
 
 [sub_resource type="RectangleShape2D" id="1"]
