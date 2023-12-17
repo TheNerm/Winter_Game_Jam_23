@@ -16,7 +16,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if(gameOver &&  (Input.is_key_pressed(KEY_ENTER) || Input.is_action_pressed("P1jump") || Input.is_action_pressed("P2jump"))):
+	if(gameOver &&  (Input.is_action_pressed("P1_Restart") || Input.is_action_pressed("P2_Restart"))):
 		reload_current_scene()
 		
 func _death(deadPlayerName):

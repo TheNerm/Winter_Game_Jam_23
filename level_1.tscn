@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://rnxqcavoydqx"]
+[gd_scene load_steps=28 format=3 uid="uid://rnxqcavoydqx"]
 
 [ext_resource type="Script" path="res://GameHandler.gd" id="1_6qnue"]
 [ext_resource type="Texture2D" uid="uid://dr4cm4dmxwvl2" path="res://Art/Background.png" id="1_d8ws6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b1csxsd54o7hy" path="res://Art/rays.png" id="7_4c2e7"]
 [ext_resource type="PackedScene" uid="uid://dy62mlujliu06" path="res://platform.tscn" id="8_0x4y7"]
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="9_cygyq"]
+[ext_resource type="Script" path="res://DeathZone.gd" id="9_xnsmm"]
 [ext_resource type="PackedScene" uid="uid://di4giu3jd6hn8" path="res://trixi.tscn" id="10_5xj3c"]
 [ext_resource type="Texture2D" uid="uid://di5a1pv5iuup3" path="res://icon.png" id="11_uk28x"]
 [ext_resource type="Texture2D" uid="uid://bxg4phiagrl3s" path="res://parryRing.png" id="12_bbb1k"]
@@ -19,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://dg2kaf4qtlvgs" path="res://Art/standotpiengi.png" id="17_v0jbx"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4hnob"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gjmi"]
+size = Vector2(1043.51, 230.921)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2iubv"]
 size = Vector2(64, 1157.85)
@@ -121,9 +125,21 @@ position = Vector2(246, 453)
 [node name="Platform8" parent="." instance=ExtResource("8_0x4y7")]
 position = Vector2(786, 151)
 
+[node name="DeathZone" type="Area2D" parent="." groups=["death"]]
+position = Vector2(556, 436)
+scale = Vector2(1.195, 1.195)
+script = ExtResource("9_xnsmm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" groups=["death"]]
+position = Vector2(7.53137, 296.234)
+scale = Vector2(2.8804, 1)
+shape = SubResource("RectangleShape2D_0gjmi")
+
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(562, 405)
 scale = Vector2(1.195, 1.195)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(60.251, 251.046)
@@ -196,7 +212,6 @@ stream = ExtResource("14_pb60x")
 
 [node name="player1" type="CharacterBody2D" parent="GameHandler" groups=["players"]]
 position = Vector2(-554, -164)
-collision_layer = 2
 script = ExtResource("9_cygyq")
 input_left = "P1move_left"
 input_right = "P1move_right"
@@ -225,7 +240,7 @@ texture = ExtResource("12_bbb1k")
 shape = SubResource("CircleShape2D_tu64w")
 
 [node name="ParryTimer" type="Timer" parent="GameHandler/player1"]
-wait_time = 0.2
+wait_time = 0.35
 one_shot = true
 
 [node name="CoolDownTimer" type="Timer" parent="GameHandler/player1"]
@@ -258,7 +273,7 @@ offset_left = 135.0
 offset_top = 391.0
 offset_right = 982.0
 offset_bottom = 661.0
-text = "Press Enter/A for restarting"
+text = "Press Enter/+ for restarting"
 label_settings = SubResource("LabelSettings_86el3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -304,6 +319,7 @@ texture = ExtResource("17_v0jbx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone/Area2D"]
 shape = SubResource("CircleShape2D_rpj0c")
 
+[connection signal="area_entered" from="DeathZone" to="GameHandler/player2" method="_on_death_zone_area_entered"]
 [connection signal="timeout" from="GameHandler/player2/ParryTimer" to="GameHandler/player2" method="_on_parry_timer_timeout"]
 [connection signal="body_entered" from="GameHandler/player2/Hurtbox" to="GameHandler/player2" method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="GameHandler/player1/ParryTimer" to="GameHandler/player1" method="_on_parry_timer_timeout"]
